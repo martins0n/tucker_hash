@@ -1,1 +1,8 @@
 .ipynb_checkpoints/
+__pycache__/
+*.png
+ucid/
+*.npy
+settings.json
+*.ipynb
+*.gz

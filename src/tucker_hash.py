@@ -1,14 +1,16 @@
 import numpy as np
 import tensorly as tl
 from tensorly.decomposition import tucker
+from .image_preprocessing import preprocessing_image_array, io_image_to_array
 
 
 def make_tensor_decomposition(
     l_matrix, u_block_size=2,
-    q_block_size=2,
+    q_block_size=32,
     i_core=2,
     j_core=2,
-    k_core=2
+    k_core=2,
+    random_state=1234
 ):
     """ 
     
@@ -28,6 +30,7 @@ def make_tensor_decomposition(
         second dimension of core tensor
     k_core : int
         third dimension of core tensor
+    random_state : int
   
     Returns
     -------
@@ -55,11 +58,14 @@ def make_tensor_decomposition(
             ).swapaxes(1, 2)
             .reshape(-1, q_block_size, q_block_size)
     )
-    x = tl.tensor(block_matrix, dtype=tl.float32)
-    return tucker(x, ranks=[i_core, j_core, k_core])
+    x = tl.tensor(block_matrix, dtype='float')
+    return tucker(
+        x, ranks=[i_core, j_core, k_core],
+        random_state=random_state
+    )
 
 
-def make_hash(core, a_factor, b_factor, c_factor):
+def make_hash(a_factor, b_factor, c_factor):
     a_p = a_factor.mean(axis=1)
     a_h = (a_p >= a_p.mean()).astype(int)
     b_p = b_factor.mean(axis=1)
@@ -69,6 +75,10 @@ def make_hash(core, a_factor, b_factor, c_factor):
     return np.hstack((a_h, b_h, c_h))
 
 
-def tucker_hash(l_matrix, q_block_size):
-    core, factors = make_tensor_decomposition(l_matrix, q_block_size=q_block_size)
-    return make_hash(core, *factors)
+def tucker_hash(img, **kwargs):
+    if isinstance(img, str):
+        img = io_image_to_array(img)
+    l_matrix = preprocessing_image_array(img)
+    _, factors = make_tensor_decomposition(l_matrix, **kwargs)
+    a_factor, b_factor, c_factor = factors[0], factors[1], factors[2]
+    return make_hash(a_factor, b_factor, c_factor)
