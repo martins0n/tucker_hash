@@ -1,7 +1,11 @@
 import numpy as np
 import tensorly as tl
+import binascii
+import PIL
+from imagehash import ImageHash
 from tensorly.decomposition import tucker
 from .image_preprocessing import preprocessing_image_array, io_image_to_array
+
 
 
 def make_tensor_decomposition(
@@ -78,7 +82,14 @@ def make_hash(a_factor, b_factor, c_factor):
 def tucker_hash(img, **kwargs):
     if isinstance(img, str):
         img = io_image_to_array(img)
+    elif not isinstance(img, np.ndarray):
+        img = np.asarray(img)
     l_matrix = preprocessing_image_array(img)
     _, factors = make_tensor_decomposition(l_matrix, **kwargs)
     a_factor, b_factor, c_factor = factors[0], factors[1], factors[2]
-    return make_hash(a_factor, b_factor, c_factor)
+    return ImageHash(make_hash(a_factor, b_factor, c_factor).reshape((-1, 8)))
+
+
+def binary_array_to_hex(arr):
+    arr = arr.reshape((-1, 8))
+    return binascii.hexlify(np.packbits(arr, axis=1)).decode('utf8')

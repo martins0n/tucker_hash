@@ -6,3 +6,5 @@ ucid/
 settings.json
 *.ipynb
 *.gz
+*.tiff
+jaffedbase/
