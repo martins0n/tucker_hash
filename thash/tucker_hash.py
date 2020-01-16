@@ -4,7 +4,7 @@ import binascii
 import PIL
 from imagehash import ImageHash
 from tensorly.decomposition import tucker
-from .image_preprocessing import preprocessing_image_array, io_image_to_array
+from thash.image_preprocessing import preprocessing_image_array, io_image_to_array
 
 
 
