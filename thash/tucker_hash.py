@@ -7,13 +7,12 @@ from tensorly.decomposition import tucker
 from thash.image_preprocessing import preprocessing_image_array, io_image_to_array
 
 
-
 def make_tensor_decomposition(
     l_matrix, u_block_size=2,
     q_block_size=32,
-    i_core=2,
-    j_core=2,
-    k_core=2,
+    i_core=1,
+    j_core=1,
+    k_core=1,
     random_state=1234
 ):
     """ 

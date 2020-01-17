@@ -5,7 +5,7 @@ from itertools import combinations
 
 
 def test_image_house():
-    assert str(tucker_hash(Image.open('./data/Pasadena-Houses/calhouse_0081.jpg'))) == '4f9f00007fff03fff000' 
+    assert str(tucker_hash(Image.open('./data/Pasadena-Houses/calhouse_0081.jpg'))) == '68ce0ff807fe0003ffff' 
 
 
 def test_initial_state_ind():
