@@ -8,5 +8,4 @@ settings.json
 *.gz
 *.tiff
 jaffedbase/
-*.jpg
 data/
