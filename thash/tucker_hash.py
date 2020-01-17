@@ -63,7 +63,8 @@ def make_tensor_decomposition(
     )
     x = tl.tensor(block_matrix, dtype='float')
     return tucker(
-        x, ranks=[i_core, j_core, k_core],
+        x, 
+        rank=[i_core, j_core, k_core],
         random_state=random_state
     )
 
