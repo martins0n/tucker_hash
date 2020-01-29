@@ -1,7 +1,9 @@
 .ipynb_checkpoints
 __pycache__
-data
 .vscode
 .pytest_cache
 .devcontainer
 venv
+ucid
+smallerimages
+thumbnails
