@@ -16,6 +16,6 @@ setup(
     version='0.0.1',
     description='Tucker decomposition for image hashing',
     url='https://github.com/martins0n/nla_project_image_hash',
-    packages=find_packages(exclude=('tests')),
+    packages=find_packages(exclude=('tests', 'notebooks')),
     install_requires=install_requires
 )
