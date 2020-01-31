@@ -5,19 +5,23 @@ from skimage.color import rgb2lab
 from skimage.io import imread
 
 
-def preprocessing_image_array(img_array, size=(256,256)):
+def preprocessing_image_array(img_array, size=(256, 256)):
     img_array = resize(img_array, size, anti_aliasing=True)
-    L = rgb2lab(img_array)[:,:,0]
-    GaussKernel = np.array([
-        [1, 4, 6, 4, 1],
-        [4, 16, 24, 16, 4],
-        [6, 24, 36, 24, 6],
-        [4, 16, 24, 16, 4],
-        [1, 4, 6, 4, 1]
-    ]) / 256
+    L = rgb2lab(img_array)[:, :, 0]
+    GaussKernel = (
+        np.array(
+            [
+                [1, 4, 6, 4, 1],
+                [4, 16, 24, 16, 4],
+                [6, 24, 36, 24, 6],
+                [4, 16, 24, 16, 4],
+                [1, 4, 6, 4, 1],
+            ]
+        )
+        / 256
+    )
     blured = convolve2d(
-        L, GaussKernel, boundary='fill', 
-        mode='same', fillvalue=np.mean(L)
+        L, GaussKernel, boundary="fill", mode="same", fillvalue=np.mean(L)
     )
     return blured
 
