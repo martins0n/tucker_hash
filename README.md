@@ -3,8 +3,7 @@
 
 Tucker decomposition for image hashing problem with [ImageHash](https://github.com/JohannesBuchner/imagehash) based api
 
-
-* [Hash comparison](./notebooks/hash_test.md)  
+* [Image hash comparison](./notebooks/hash_test.md)  
 
 #### Articles
 * [Robust Image Hashing with Tensor Decomposition](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8360464)  
